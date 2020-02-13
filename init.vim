@@ -103,8 +103,20 @@ map sj :set splitbelow<CR>:split<CR>
 map sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 map sl :set splitright<CR>:vsplit<CR>
 
+" Resize splits with arrow keys
+noremap <up> :res +5<CR>
+noremap <down> :res -5<CR>
+noremap <left> :vertical resize-5<CR>
+noremap <right> :vertical resize+5<CR>
+
 " Opening a terminal window
 map <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+
+" Press space twice to jump to the next '<++>' and edit it
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+
+" Call figlet
+noremap tx :r !figlet
 
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
@@ -136,8 +148,7 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'html'
-        echo "asdf"
-		silent! exec "!".g:mkdp_browser." % &"
+		exec "! open -a \"/Applications/Google Chrome.app\" % &"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -226,7 +237,7 @@ colorscheme gruvbox
 syntax on           " 语法高亮  
 
 "surround
-"nnoremap <LEADER>i ysiw
+nmap <LEADER>i ysiw
 
 "nerdtree
 map mm :NERDTreeToggle<CR>
