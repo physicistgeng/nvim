@@ -1,9 +1,35 @@
 {
+    "yank.enableCompletion" : false,
 	"languageserver": {
 	  "golang": {
         "command": "gopls",
 		"rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
 		"filetypes": ["go"]
 	  }
-	}
+	},
+    "explorer.sources": [
+		{
+			"name": "buffer",
+			"expand": true
+		},
+		{
+			"name": "file",
+			"expand": true
+		}
+	],
+    "explorer.previewAction.onHover": true,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.icon.enableVimDevions": true,
+    "explorer.file.hiddenRules": {
+        "extensions": [
+          "o",
+          "a",
+          "obj",
+          "pyc"
+        ],
+        "filenames": [],
+        "patternMatches": [
+          "^\\."
+        ]
+    }
 }

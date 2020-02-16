@@ -6,9 +6,11 @@
 
 "general settings
 " Enable the true color
-if (has("termguicolors"))
- set termguicolors
-endif
+"if (has("termguicolors"))
+ "set termguicolors
+"endif
+set termguicolors	" enable true colors support
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 "Cursor shape
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -148,7 +150,7 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'html'
-		exec "! open -a \"/Applications/Google Chrome.app\" % &"
+		silent exec "! open -a \"/Applications/Google Chrome.app\" % &"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -186,7 +188,9 @@ nnoremap <LEADER>b :b
 " Snippets
 source ~/.config/nvim/md-snippets.vim
 " auto spell
-autocmd BufRead,BufNewFile *.md setlocal spell
+"autocmd BufRead,BufNewFile *.md setlocal spell
+" Press space twice to jump to the next '<++>' and edit it
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 "coc.nvim will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -228,6 +232,8 @@ Plug 'tmhedberg/SimpylFold', {'for': ['python']}
 Plug 'vim-python/python-syntax', {'for': ['python']}
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less']}
+Plug 'itchyny/calendar.vim'
+Plug 'tpope/vim-markdown'
 call plug#end()
 colorscheme gruvbox
 "colorscheme deus
@@ -240,7 +246,8 @@ syntax on           " 语法高亮
 nmap <LEADER>i ysiw
 
 "nerdtree
-map mm :NERDTreeToggle<CR>
+"map mm :NERDTreeToggle<CR>
+nmap mm :CocCommand explorer<CR>
 let NERDTreeIgnore=['\.pyc','\~$','\.swp', '\.__pycahe--', 'tags']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " FZF file finder
@@ -431,7 +438,7 @@ endfunction
 "au Syntax * RainbowParenthesesLoadBraces
 "vim-rainbow
 "let g:rainbow_active = 1
-au FileType python,vim,markdown,java,go,sh,json,javascript call rainbow#load()
+au FileType python,vim,markdown,java,go,sh,javascript call rainbow#load()
 
 "tagbar
 nmap tt :TagbarToggle<CR>
@@ -456,8 +463,8 @@ tnoremap <C-N> <C-\><C-N>
 let python_highlight_all = 1
 
 "indentLine
-let g:indentLine_showFirstIndentLevel =1
-let g:indentLine_char='┆'
+"let g:indentLine_showFirstIndentLevel =1
+"let g:indentLine_char='┆'
 
 "add addtional string to specific files
 autocmd BufNewFile *sh,*py,*js exec ":call SetTitle()"
