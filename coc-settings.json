@@ -1,5 +1,4 @@
 {
-    "yank.enableCompletion" : false,
 	"languageserver": {
 	  "golang": {
         "command": "gopls",
@@ -31,5 +30,6 @@
         "patternMatches": [
           "^\\."
         ]
-    }
+    },
+    "coc.preferences.colorSupport": true
 }

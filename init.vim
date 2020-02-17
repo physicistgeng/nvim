@@ -201,8 +201,7 @@ let g:python3_host_prog  = '/Users/gengjiwei/anaconda3/bin/python3'
 "load the plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line cu to cancle commnet
 Plug 'tpope/vim-surround'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -222,18 +221,19 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'f
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'itchyny/lightline.vim'
 Plug 'frazrepo/vim-rainbow'
-Plug 'vwxyutarooo/nerdtree-devicons-syntax'
+"Plug 'vwxyutarooo/nerdtree-devicons-syntax'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'ajmwagar/vim-deus'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmhedberg/SimpylFold', {'for': ['python']}
 Plug 'vim-python/python-syntax', {'for': ['python']}
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less']}
 Plug 'itchyny/calendar.vim'
 Plug 'tpope/vim-markdown'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 colorscheme gruvbox
 "colorscheme deus
@@ -248,8 +248,8 @@ nmap <LEADER>i ysiw
 "nerdtree
 "map mm :NERDTreeToggle<CR>
 nmap mm :CocCommand explorer<CR>
-let NERDTreeIgnore=['\.pyc','\~$','\.swp', '\.__pycahe--', 'tags']
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"let NERDTreeIgnore=['\.pyc','\~$','\.swp', '\.__pycahe--', 'tags']
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " FZF file finder
 map <c-p> :FZF
 "Semshi rename
@@ -304,7 +304,7 @@ endfunction
 " use <tab> for trigger completion and navigate to the next complete item
 " Installing plugins
 "
-let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-json','coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-translator', 'coc-pyright', 'coc-git']
+"let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-json','coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-translator', 'coc-pyright', 'coc-git']
 "let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-tailwindcss', 'coc-stylelint', 'coc-tslint', 'coc-lists', 'coc-git', 'coc-explorer', 'coc-pyright', 'coc-sourcekit', 'coc-translator', 'coc-emmet']
 function! s:check_back_space() abort
   let col = col('.') - 1
