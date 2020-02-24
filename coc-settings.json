@@ -18,7 +18,6 @@
 	],
     "explorer.previewAction.onHover": true,
     "explorer.icon.enableNerdfont": true,
-    "explorer.icon.enableVimDevions": true,
     "explorer.file.hiddenRules": {
         "extensions": [
           "o",
@@ -31,5 +30,7 @@
           "^\\."
         ]
     },
-    "coc.preferences.colorSupport": true
+    "coc.preferences.colorSupport": true,
+    "coc.preferences.extensionUpdateCheck": "weekly",
+    "yank.enableCompletion": false
 }

@@ -99,6 +99,7 @@ map <LEADER>l <C-w>l
 map <LEADER>r <C-w>r
 
 noremap <silent> J 5j
+noremap <silent> K 5k
 
 map sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 map sj :set splitbelow<CR>:split<CR>
@@ -176,7 +177,7 @@ noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 " Open Startify
 noremap <LEADER>st :Startify<CR>
 " Disable the default s key
-noremap s <nop>
+"noremap s <nop>
 " Remove spaces at the end of lines
 nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 nnoremap Y y$
@@ -234,12 +235,14 @@ Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less']}
 Plug 'itchyny/calendar.vim'
 Plug 'tpope/vim-markdown'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go'
+Plug 'shinchu/lightline-gruvbox.vim'
 call plug#end()
 colorscheme gruvbox
 "colorscheme deus
 "colorscheme onedark
 "colorscheme tender
-"colorscheme dracula
+
 syntax on           " 语法高亮  
 
 "surround
@@ -278,14 +281,11 @@ let g:lightline = {
 	\ 'component': {
 	\   'lineinfo': ' %3l:%-2v',
 	\ },
-	\ }
-
-let g:lightline = {
-      \ 'component_function': {
-      \   'filetype': 'MyFiletype',
-      \   'fileformat': 'MyFileformat',
-      \ }
-      \ }
+    \ 'component_function': {
+    \   'filetype': 'MyFiletype',
+    \   'fileformat': 'MyFileformat',
+    \ }
+    \ }
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -333,7 +333,7 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " coc-translator
 nmap ts <Plug>(coc-translator-p)
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> D :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -345,6 +345,7 @@ endfunction
 "coc-snippets
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
+imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = ',f'
@@ -354,6 +355,12 @@ let g:coc_snippet_prev = ',b'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap ,f <Plug>(coc-snippets-expand-jump)
+
+"coc-git
+"nmap <LEADER>g <Plug>(coc-git-chunkinfo)
+nmap <leader>g :CocCommand git.chunkInfo<CR>
+nmap <leader>b <plug>(coc-git-nextchunk)
+nmap <LEADER>f <Plug>(coc-git-prevchunk)
 
 "vim-slime
 let g:slime_target = "tmux"
@@ -463,7 +470,8 @@ tnoremap <C-N> <C-\><C-N>
 let python_highlight_all = 1
 
 "indentLine
-"let g:indentLine_showFirstIndentLevel =1
+let g:indentLine_showFirstIndentLevel =1
+let g:indentLine_fileTypeExclude=['coc-explorer']
 "let g:indentLine_char='┆'
 
 "add addtional string to specific files
@@ -484,5 +492,3 @@ func SetTitle()
     endif
 endfunc 
 autocmd BufNewFile * normal G
-
-
