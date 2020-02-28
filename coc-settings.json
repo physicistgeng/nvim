@@ -25,7 +25,6 @@
     },
     "coc.preferences.colorSupport": true,
     "coc.preferences.extensionUpdateCheck": "weekly",
-    "yank.enableCompletion": false,
     "languageserver": {
 		"golang": {
 			"command": "gopls",
