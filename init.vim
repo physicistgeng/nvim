@@ -170,7 +170,7 @@ endfunc
 inoremap jj <ESC>
 "xmap jj <ESC>
 ""set a map for python docstring 
-inoremap ** """<space><space>"""<ESC>3hi
+"inoremap ** """<space><space>"""<ESC>3hi
 
 " Open the vimrc file anytime
 noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>

@@ -1,11 +1,4 @@
 {
-	"languageserver": {
-	  "golang": {
-        "command": "gopls",
-		"rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-		"filetypes": ["go"]
-	  }
-	},
     "explorer.sources": [
 		{
 			"name": "buffer",
@@ -32,5 +25,23 @@
     },
     "coc.preferences.colorSupport": true,
     "coc.preferences.extensionUpdateCheck": "weekly",
-    "yank.enableCompletion": false
+    "yank.enableCompletion": false,
+    "languageserver": {
+		"golang": {
+			"command": "gopls",
+			"rootPatterns": ["go.mod"],
+			"filetypes": ["go"],
+			"initializationOptions": {
+				"gocodeCompletionEnabled": true,
+				"diagnosticsEnabled": true,
+				"lintTool": "golint"
+			}
+		},
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": []
+		}
+	}
 }
