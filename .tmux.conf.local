@@ -113,7 +113,7 @@ tmux_conf_theme_window_status_fg='#8a8a8a'              # light gray
 tmux_conf_theme_window_status_bg='#363636'              # dark gray
 #tmux_conf_theme_window_status_bg='#080808'              # dark gray
 tmux_conf_theme_window_status_attr='none'
-tmux_conf_theme_window_status_format='#I #W'
+tmux_conf_theme_window_status_format='#I #W |'
 #tmux_conf_theme_window_status_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_format='#I #W#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}'
 
@@ -125,10 +125,10 @@ tmux_conf_theme_window_status_format='#I #W'
 #     - #{hostname_ssh}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_window_status_current_fg='#000000'      # black
+tmux_conf_theme_window_status_current_fg='#385234'      # black
 tmux_conf_theme_window_status_current_bg='#8ec07c'      # light blue
 tmux_conf_theme_window_status_current_attr='none'
-tmux_conf_theme_window_status_current_format='#I #W'
+tmux_conf_theme_window_status_current_format='#I #W \ue7c4'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_current_format='#I #W#{?window_zoomed_flag,🔍,}'
 
@@ -140,11 +140,11 @@ tmux_conf_theme_window_status_activity_attr='underscore'
 # window bell status style
 tmux_conf_theme_window_status_bell_fg='#ffff00'         # yellow
 tmux_conf_theme_window_status_bell_bg='default'
-#tmux_conf_theme_window_status_bell_attr='blink,bold'
+tmux_conf_theme_window_status_bell_attr='blink,bold'
 tmux_conf_theme_window_status_bell_attr='bold'
 
 # window last status style
-tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
+tmux_conf_theme_window_status_last_fg='#46BA20'         # light blue
 tmux_conf_theme_window_status_last_bg='default'
 tmux_conf_theme_window_status_last_attr='none'
 
@@ -183,13 +183,13 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=' \ue7a1 #S | \ufa1a#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , \ue385  %R , \uf073 %b %d | \uf21b #{username}#{root} | \uf302 #{hostname} '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , \ue385  %R , \uf073 %b %d | \uf21b  #{username}#{root} | \uf302 #{hostname} '
 
 # status left style
 #tmux_conf_theme_status_left_fg='#4A4C10,#4A4C10,#e4e4e4'  # black, white , white
-tmux_conf_theme_status_left_fg='#d5c4a1,#4A4C10,#e4e4e4'  # black, white , white
+tmux_conf_theme_status_left_fg='#691815,#4A4C10,#e4e4e4'  # black, white , white
 #tmux_conf_theme_status_left_bg='#b8bb26,#fe8019,#689d6a'  # yellow, pink, white blue
-tmux_conf_theme_status_left_bg='#d65d0e,#b8bb26,#689d6a'  # yellow, pink, white blue
+tmux_conf_theme_status_left_bg='#fb4934,#b8bb26,#689d6a'  # yellow, pink, white blue
 tmux_conf_theme_status_left_attr='none,none,none'
 
 # status right style
@@ -205,7 +205,8 @@ tmux_conf_theme_pairing_bg='none'
 tmux_conf_theme_pairing_attr='none'
 
 # prefix indicator
-tmux_conf_theme_prefix='⌨'            # U+2328
+tmux_conf_theme_prefix='🜃'            # U+2328
+#tmux_conf_theme_prefix='⌨'            # U+2328
 tmux_conf_theme_prefix_fg='none'
 tmux_conf_theme_prefix_bg='none'
 tmux_conf_theme_prefix_attr='none'
@@ -214,7 +215,7 @@ tmux_conf_theme_prefix_attr='none'
 tmux_conf_theme_root='!'
 tmux_conf_theme_root_fg='none'
 tmux_conf_theme_root_bg='none'
-#tmux_conf_theme_root_attr='bold,blink'
+tmux_conf_theme_root_attr='bold,blink'
 tmux_conf_theme_root_attr='bold'
 
 # synchronized indicator
