@@ -197,12 +197,14 @@ noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 set updatetime=300
 
 "neovim python provider
-let g:python3_host_prog  = '/Users/gengjiwei/anaconda3/bin/python3'
+let g:python_host_skip_check=1
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_skip_check=1
+let g:python3_host_prog  = '/Users/gengjiwei/miniconda3/bin/python'
 
 "load the plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
-"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line cu to cancle commnet
 Plug 'tpope/vim-surround'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -211,7 +213,6 @@ Plug 'jpalardy/vim-slime'
 Plug 'bling/vim-bufferline'
 Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine', {'for': ['python']}
-"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
 Plug '~/.fzf'
@@ -222,21 +223,11 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'f
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'itchyny/lightline.vim'
 Plug 'frazrepo/vim-rainbow'
-"Plug 'vwxyutarooo/nerdtree-devicons-syntax'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'ajmwagar/vim-deus'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmhedberg/SimpylFold', {'for': ['python']}
-Plug 'vim-python/python-syntax', {'for': ['python']}
 Plug 'jaxbot/semantic-highlight.vim'
-Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less']}
-Plug 'itchyny/calendar.vim'
-Plug 'tpope/vim-markdown'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
-Plug 'shinchu/lightline-gruvbox.vim'
 call plug#end()
 colorscheme gruvbox
 "colorscheme deus
@@ -250,7 +241,8 @@ nmap <LEADER>i ysiw
 
 "nerdtree
 "map mm :NERDTreeToggle<CR>
-nmap mm :CocCommand explorer<CR>
+nmap mm :CocCommand explorer --toggle<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 "let NERDTreeIgnore=['\.pyc','\~$','\.swp', '\.__pycahe--', 'tags']
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " FZF file finder
@@ -260,9 +252,12 @@ map <c-r> :Semshi rename<CR>
 
 
 "plugin settings
-"let g:airline_theme='gruvbox'
+"let g:airline_theme='base16_gruvbox_dark_hard'
+"let g:airline#extensions#disable_rtp_load = 1
 "let g:airline_powerline_fonts = 1
 "let g:airline#extensions#coc#enabled = 1 
+"let g:airline_section_b = ''
+"let g:airline#extensions#bufferline#enabled = 0
 
 "ultisnips
 "let g:UltiSnipsExpandTrigger="<c-b>"
@@ -274,19 +269,44 @@ map <c-r> :Semshi rename<CR>
 
 "lightline
 "let g:lightline = {
-      "\ 'colorscheme': 'wombat',
-      "\ }
+    "\ 'colorscheme': 'wombat',
+    "\ }
 
 let g:lightline = {
-	\ 'component': {
-	\   'lineinfo': ' %3l:%-2v',
+    \ 'colorscheme': 'gjw',
+    \ 'active': {
+	    \   'left': [ [ 'mode', 'paste' ],
+	    \             [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]
 	\ },
+    \ 'component': {
+    \   'lineinfo': ' %3l:%-2v',
+    \ },
     \ 'component_function': {
     \   'filetype': 'MyFiletype',
     \   'fileformat': 'MyFileformat',
-    \ }
+    \ },
+    \ 'component_expand': {
+    \   'cocstatus': 'coc#status'
+    \ },
+    \ 'component_type': {
+    \   'cocstatus': 'error'
+    \ },
+    \ 'mode_map': {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ },
     \ }
 
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
@@ -294,6 +314,8 @@ endfunction
 function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
+
+let g:coc_status_error_sign = 'E:'
 "===
 " === coc
 " ===
@@ -305,7 +327,7 @@ endfunction
 " Installing plugins
 "
 "let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-json','coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-translator', 'coc-pyright', 'coc-git']
-"let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-tailwindcss', 'coc-stylelint', 'coc-tslint', 'coc-lists', 'coc-git', 'coc-explorer', 'coc-pyright', 'coc-sourcekit', 'coc-translator', 'coc-emmet']
+let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-lists', 'coc-git', 'coc-explorer', 'coc-pyright', 'coc-translator', 'coc-tslint']
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -361,6 +383,9 @@ imap ,f <Plug>(coc-snippets-expand-jump)
 nmap <leader>g :CocCommand git.chunkInfo<CR>
 nmap <leader>b <plug>(coc-git-nextchunk)
 nmap <LEADER>f <Plug>(coc-git-prevchunk)
+
+"coc-yank
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
 "vim-slime
 let g:slime_target = "tmux"
@@ -420,24 +445,6 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 
-"semshi
-autocmd FileType python call MyCustomHighlights()
-function MyCustomHighlights()
-	hi  semshiLocal           ctermfg=209 guifg=#ff875f
-	hi  semshiGlobal          ctermfg=214 guifg=#ffaf00
-	hi  semshiImported        ctermfg=109 guifg=#ffaf00 
-	hi  semshiParameter       ctermfg=75  guifg=#5fafff
-	hi  semshiParameterUnused ctermfg=117 guifg=#87d7ff cterm=underline gui=underline
-	hi  semshiFree            ctermfg=218 guifg=#ffafd7
-	hi  semshiBuiltin         ctermfg=175 guifg=#ff5fff
-	hi  semshiAttribute       ctermfg=72  guifg=#00ffaf
-	hi  semshiSelf            ctermfg=249 guifg=#b2b2b2
-	hi  semshiUnresolved      ctermfg=226 guifg=#ffff00 cterm=underline gui=underline
-	hi  semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
-	hi  semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-	hi  semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-endfunction
-
 "rainbow_parentheses
 "au VimEnter * RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadRound
@@ -454,10 +461,10 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 
 "goyo
-map <LEADER>gy :Goyo<CR>
-let g:goyo_width=120
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+"map <LEADER>gy :Goyo<CR>
+"let g:goyo_width=120
+"autocmd! User GoyoEnter Limelight
+"autocmd! User GoyoLeave Limelight!
 
 " ===
 " === Terminal Behaviors
@@ -465,9 +472,6 @@ autocmd! User GoyoLeave Limelight!
 let g:neoterm_autoscroll = 1
 autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
-
-"python_syntax
-let python_highlight_all = 1
 
 "indentLine
 let g:indentLine_showFirstIndentLevel =1

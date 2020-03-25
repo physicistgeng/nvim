@@ -1,4 +1,5 @@
 {
+    "yank.enableCompletion":false,
     "explorer.sources": [
 		{
 			"name": "buffer",
@@ -9,6 +10,7 @@
 			"expand": true
 		}
 	],
+    "explorer.file.column.indent.indentLine": true,
     "explorer.previewAction.onHover": true,
     "explorer.icon.enableNerdfont": true,
     "explorer.file.hiddenRules": {
