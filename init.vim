@@ -204,7 +204,6 @@ let g:python3_host_prog  = '/Users/gengjiwei/miniconda3/bin/python'
 
 "load the plugins
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line cu to cancle commnet
 Plug 'tpope/vim-surround'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -227,7 +226,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'tmhedberg/SimpylFold', {'for': ['python']}
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go'
+Plug 'physicistgeng/gruvbox'
 call plug#end()
 colorscheme gruvbox
 "colorscheme deus
@@ -273,23 +272,25 @@ map <c-r> :Semshi rename<CR>
     "\ }
 
 let g:lightline = {
-    \ 'colorscheme': 'gjw',
+    \ 'colorscheme': 'gruvbox',
     \ 'active': {
 	    \   'left': [ [ 'mode', 'paste' ],
-	    \             [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]
+	    \             [ 'readonly', 'filename', 'modified', 'cocstatus', 'cocerror' ] ]
 	\ },
     \ 'component': {
-    \   'lineinfo': ' %3l:%-2v',
+    \   'lineinfo': '%3l:%-2v',
     \ },
     \ 'component_function': {
     \   'filetype': 'MyFiletype',
     \   'fileformat': 'MyFileformat',
     \ },
     \ 'component_expand': {
-    \   'cocstatus': 'coc#status'
+    \   'cocstatus': 'LightLineCocStatus',
+    \   'cocerror': 'LightLineCocError',
     \ },
     \ 'component_type': {
-    \   'cocstatus': 'error'
+    \   'cocstatus': 'error',
+    \   'cocerror': 'warning'
     \ },
     \ 'mode_map': {
         \ 'n' : 'N',
@@ -306,7 +307,29 @@ let g:lightline = {
         \ },
     \ }
 
+function! LightLineCocStatus()
+    let msg = []
+    return trim(get(g:, 'coc_status', ''))
+endfunction
+
+function! LightLineCocError()
+  let error_sign = get(g:, 'coc_status_error_sign')
+  let warning_sign = get(g:, 'coc_status_warning_sign')
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info)
+    return ''
+  endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, error_sign . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, warning_sign . info['warning'])
+  endif
+  return trim(join(msgs, ' '))
+endfunction
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
@@ -315,7 +338,7 @@ function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-let g:coc_status_error_sign = 'E:'
+let g:coc_status_error_sign = '♣ '
 "===
 " === coc
 " ===

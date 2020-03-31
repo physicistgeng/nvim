@@ -44,5 +44,9 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-	}
+	},
+    "python.jediEnabled":true,
+    "javascript.validate.enable":true,
+    "javascript.suggest.enabled":true,
+    "tslint.jsEnable":true
 }
