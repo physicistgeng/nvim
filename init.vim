@@ -17,6 +17,8 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+"设置如何分词
+set iskeyword +=-
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 set fileencoding=utf-8
 set nopaste
@@ -147,9 +149,10 @@ func! CompileRunGcc()
 	elseif &filetype == 'sh'
 		:!time bash %
 	elseif &filetype == 'python'
-		set splitbelow
-		:sp
-		:term python3 %
+        exec "!python3 %"
+		"set splitbelow
+		":sp
+		":term python3 %
 	elseif &filetype == 'html'
 		silent exec "! open -a \"/Applications/Google Chrome.app\" % &"
 	elseif &filetype == 'markdown'
@@ -185,7 +188,8 @@ nnoremap <LEADER>b :b
 
 " ===
 " === Markdown Settings
-" ===
+let g:mkdp_command_for_global = 1
+"" ===
 " Snippets
 source ~/.config/nvim/md-snippets.vim
 " auto spell
@@ -227,6 +231,7 @@ Plug 'tmhedberg/SimpylFold', {'for': ['python']}
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'physicistgeng/gruvbox'
+Plug 'tpope/vim-repeat'
 call plug#end()
 colorscheme gruvbox
 "colorscheme deus
@@ -339,6 +344,7 @@ function! MyFileformat()
 endfunction
 
 let g:coc_status_error_sign = '♣ '
+let g:coc_status_warning_sign = '♥ '
 "===
 " === coc
 " ===
@@ -360,6 +366,7 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 " Useful commands
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 nmap <silent> gd <Plug>(coc-definition)
